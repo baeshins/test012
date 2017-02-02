@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="freeboard.js"></script>
+</head>
+<body>
+	<h3>새글쓰기</h3>
+	<hr>
+	<form name="msgwrite" method="post" action="freeboard_save.jsp">
+		이 &nbsp;름 : <input type="text" name="name"><br>
+		E-mail : <input type="text" name="email"><br>
+		제 &nbsp;목 : <input type="text" name="subject"><br>
+		내 &nbsp;용 : <br><textarea rows="10" cols="60" name="content"></textarea><br>
+		암 &nbsp;호 : <input type="password" name="password">
+		       (비밀번호를 입력하면 수정 또는 삭제가 가능합니다.)<br>
+<!-- 		<input type="submit" value="저장"> --> 
+		<input type="button" value="저장" onclick="check();"> 
+		<input type="reset" value="취소"> 
+	</form>
+</body>
+</html>
