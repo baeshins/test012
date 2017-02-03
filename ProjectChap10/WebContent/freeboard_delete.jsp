@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.sql.*, java.util.*, java.text.*"%>
+	pageEncoding="UTF-8" import="java.sql.*, java.util.*, java.text.*"%>
 <% 
 	request.setCharacterEncoding("UTF-8");
 
@@ -59,11 +59,11 @@
 	}
 	if(result>0){
 		out.println("데이터가 성공적으로 삭제되었습니다."+"<br>");%>
-		<jsp:forward page="freeboard_list.jsp"></jsp:forward>
-	<% }	else {
+<jsp:forward page="freeboard_list.jsp"></jsp:forward>
+<% }	else {
 		//out.println("데이터가 수정되지 않았습니다."+"<br>");
 		out.println("<script>alert('데이터가 삭제되지 않았습니다.');</script>");
 	    out.println("<script>history.go(-1);</script>");
-	}%> 
+	}%>
 <!-- <a href="freeboard_list.jsp">목록보기</a> -->
 <%-- <jsp:forward page="freeboard_list.jsp"></jsp:forward> --%>

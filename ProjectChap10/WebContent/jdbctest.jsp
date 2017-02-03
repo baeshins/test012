@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.sql.*"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8" import="java.sql.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <% request.setCharacterEncoding("utf-8"); %>
 
@@ -34,21 +35,23 @@
 	}
 %>
 <HTML>
-<HEAD><TITLE>ch08 : JDBC 테스트 </TITLE></HEAD>
+<HEAD>
+<TITLE>ch08 : JDBC 테스트</TITLE>
+</HEAD>
 <BODY>
-<div align="center">
-<H2>이벤트 등록</H2>
-<HR>
+	<div align="center">
+		<H2>이벤트 등록</H2>
+		<HR>
 
-<form name=form1 method=post action=jdbctest.jsp>
-등록이름 : <input type=text name=username>
-email주소 : <input type=text name=email size=20>
-<input type=submit value="등록">
-</form>
-<HR>
-</div>
-# 등록 목록<P>
-<%
+		<form name=form1 method=post action=jdbctest.jsp>
+			등록이름 : <input type=text name=username> email주소 : <input
+				type=text name=email size=20> <input type=submit value="등록">
+		</form>
+		<HR>
+	</div>
+	# 등록 목록
+	<P>
+		<%
 	try{
 		// select 문장을 문자열 형태로 구성한다.
 		String sql = "select username, email from jdbc_test";
@@ -71,5 +74,6 @@ email주소 : <input type=text name=email size=20>
 		System.out.println(e);
 	}
 %>
+	
 </BODY>
 </HTML>

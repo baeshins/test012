@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.sql.*, java.util.*"%>
+	pageEncoding="UTF-8" import="java.sql.*, java.util.*"%>
 <%request.setCharacterEncoding("UTF-8");%>
 
 
@@ -9,22 +9,41 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>게시판</title>
 <style>
-	#wrap {
-		width:800px;
-		margin: 0 auto;
-	}
-	#title li{
-		list-style-type: none;
-		width:15%;
-		float:left;
-	}
-	span{display:inline-block;}
-	.va {width:10%; padding-left:1%;}
-	.vb {width:41%;}
-	.vc {width:16%;}
+#wrap {
+	width: 800px;
+	margin: 0 auto;
+}
 
-	a {text-decoration:none; }
-	span a {color:darkgreen;}
+#title li {
+	list-style-type: none;
+	width: 15%;
+	float: left;
+}
+
+span {
+	display: inline-block;
+}
+
+.va {
+	width: 10%;
+	padding-left: 1%;
+}
+
+.vb {
+	width: 41%;
+}
+
+.vc {
+	width: 16%;
+}
+
+a {
+	text-decoration: none;
+}
+
+span a {
+	color: darkgreen;
+}
 </style>
 <SCRIPT language="javascript">
  function check(){
@@ -54,7 +73,7 @@
 </SCRIPT>
 </head>
 <body>
-<%
+	<%
 	String cond = null;
 	int what = 0;
 	String val = "";
@@ -101,19 +120,21 @@
 		cond = " order by masterid desc, replynum, step, id";
 	}
 %>
-<div id="wrap">
-<h2>자유 게시판</h2>
-<hr><br><br>
-	<ul id="title">
-		<li>번호</li>
-		<li style="width:40%">제목</li>
-		<li>등록자</li>
-		<li>날짜</li>
-		<li>조회</li>
-	</ul>
-	<hr size="2">
-	
-<%
+	<div id="wrap">
+		<h2>자유 게시판</h2>
+		<hr>
+		<br>
+		<br>
+		<ul id="title">
+			<li>번호</li>
+			<li style="width: 40%">제목</li>
+			<li>등록자</li>
+			<li>날짜</li>
+			<li>조회</li>
+		</ul>
+		<hr size="2">
+
+		<%
 	Vector dbid = new Vector();
 	Vector name = new Vector();
 	Vector inputdate = new Vector();
@@ -301,34 +322,32 @@
 	
 %>
 
-<FORM method="post" name="msgsearch" action="freeboard_list_search.jsp">
-<TABLE border=0 width=100% cellpadding=0 cellspacing=0>
- <TR>
-  <TD align=right width="241"> 
-   <SELECT name=stype >
-    <OPTION value=1 >이름
-    <OPTION value=2 >제목
-    <OPTION value=3 >내용
-    <OPTION value=4 >이름+제목
-    <OPTION value=5 >이름+내용
-    <OPTION value=6 >제목+내용
-    <OPTION value=7 >이름+제목+내용
-   </SELECT>
-  </TD>
-  <TD width="127" align="center">
-   <INPUT type=text size="17" name="sval" value="<%=val%>" >
-  </TD>
-  <TD width="115">&nbsp;<a href="#" onClick="check();"><img src="image/serach.gif" border="0" align='absmiddle'></A></TD>
-  <TD align=right valign=bottom width="117">
-  	<A href="freeboard_list_search.jsp">[전체목록]</A>
-  	<A href="freeboard_write.html">[글쓰기]</A>
-  </TD>
- </TR>
-</TABLE>
-</FORM>
-</div>
+		<FORM method="post" name="msgsearch"
+			action="freeboard_list_search.jsp">
+			<TABLE border=0 width=100% cellpadding=0 cellspacing=0>
+				<TR>
+					<TD align=right width="241"><SELECT name=stype>
+							<OPTION value=1>이름
+							<OPTION value=2>제목
+							<OPTION value=3>내용
+							<OPTION value=4>이름+제목
+							<OPTION value=5>이름+내용
+							<OPTION value=6>제목+내용
+							<OPTION value=7>이름+제목+내용
+					</SELECT></TD>
+					<TD width="127" align="center"><INPUT type=text size="17"
+						name="sval" value="<%=val%>"></TD>
+					<TD width="115">&nbsp;<a href="#" onClick="check();"><img
+							src="image/serach.gif" border="0" align='absmiddle'></A></TD>
+					<TD align=right valign=bottom width="117"><A
+						href="freeboard_list_search.jsp">[전체목록]</A> <A
+						href="freeboard_write.html">[글쓰기]</A></TD>
+				</TR>
+			</TABLE>
+		</FORM>
+	</div>
 
-<script>
+	<script>
 	document.msgsearch.stype.options[<%=what-1%>].selected = true; 
 </script>
 

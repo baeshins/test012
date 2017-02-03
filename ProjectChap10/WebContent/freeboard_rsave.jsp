@@ -1,5 +1,5 @@
-<%@ page contentType="text/html; charset=UTF-8" %> 
-<%@ page language="java" import="java.sql.*,java.util.*,java.text.*" %> 
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ page language="java" import="java.sql.*,java.util.*,java.text.*"%>
 <% request.setCharacterEncoding("UTF-8"); %>
 <%
  String name = request.getParameter("name");

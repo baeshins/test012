@@ -14,9 +14,11 @@
 	margin: 0 auto;
 }
 
-#search {width: 450px;
-		 margin-left:350px;
+#search {
+	width: 450px;
+	margin-left: 350px;
 }
+
 #title li {
 	list-style-type: none;
 	width: 15%;
@@ -47,8 +49,6 @@ a {
 span a {
 	color: darkgreen;
 }
-
-
 </style>
 <SCRIPT language="javascript">
 	function check() {
@@ -79,9 +79,9 @@ span a {
 <body>
 	<div id="wrap">
 		<div id="search">
-		<FORM method=post name=search action="freeboard_search.jsp">
-			[<A href="freeboard_list.jsp">전체목록</A>] <SELECT name=stype>
-			<%
+			<FORM method=post name=search action="freeboard_search.jsp">
+				[<A href="freeboard_list.jsp">전체목록</A>] <SELECT name=stype>
+					<%
 				String cond = null;
 				int what = 1;
 				String val = null;
@@ -140,10 +140,10 @@ span a {
 					chkAll = true;
 				}
 			%>
-			</SELECT> 
-			<INPUT type=text name="sval" value="<%=request.getParameter("sval")%>">
-			<INPUT type=submit value="검색">			
-		</FORM>
+				</SELECT> <INPUT type=text name="sval"
+					value="<%=request.getParameter("sval")%>"> <INPUT
+					type=submit value="검색">
+			</FORM>
 		</div>
 		<h3>자유 게시판(검색모드)</h3>
 		<hr>
