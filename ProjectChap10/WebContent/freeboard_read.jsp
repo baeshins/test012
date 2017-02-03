@@ -44,7 +44,7 @@
 			out.println("<hr>");
 			out.println("<pre>" + rs.getString("content") + "</pre><br>");
 			out.println("<hr>");
-			out.println("<a href='freeboard_list.jsp?go="+ request.getParameter("page") + "'>[목록]</a>  ");
+			out.println("<a href='freeboard_list_search.jsp?go="+ request.getParameter("page") + "'>[목록]</a>  ");
 			out.println("<a href='freeboard_update.jsp?id="+id+"&page="+ request.getParameter("page")+ "'>[수정]</a> ");
 			out.println("<a href='freeboard_rwrite.jsp?id="+id+"&page="+ request.getParameter("page")+ "'>[답글]</a> ");
 			

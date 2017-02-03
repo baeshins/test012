@@ -3,11 +3,11 @@
 <%request.setCharacterEncoding("UTF-8");%>
 
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>게시판</title>
 <style>
 	#wrap {
 		width:800px;
@@ -29,11 +29,11 @@
 <SCRIPT language="javascript">
  function check(){
   with(document.msgsearch){
-   if(sval.value.length == 0){
+   /* if(sval.value.length == 0){
     alert("검색어를 입력해 주세요!!");
     sval.focus();
     return false;
-   }	
+   } */	
    document.msgsearch.submit();
   }
  }
@@ -54,6 +54,53 @@
 </SCRIPT>
 </head>
 <body>
+<%
+	String cond = null;
+	int what = 0;
+	String val = "";
+	boolean chkAll = false;
+	
+	if (request.getParameter("stype") != null && request.getParameter("sval")!="") {
+		//검색옵션 파라메타 저장
+		what = Integer.parseInt(request.getParameter("stype"));
+		val = request.getParameter("sval");
+		//옵션에 따라 query문의 조건절을 완성하고 select의 내용을 완성
+		switch(what){
+			case 1: 
+				cond = " where name like '%" + val + "%'";
+				break;
+			case 2: 
+				cond = " where subject like '%" + val + "%'";
+				break;
+			case 3:
+				cond = " where content  like '%" + val + "%'";
+				break;
+			case 4:
+				cond = " where name  like '%" + val + "%'";
+				cond = cond + " or  subject  like '%" + val + "%'";
+				break;
+			case 5: 
+				cond = " where name  like '%" + val + "%'";
+				cond = cond + " or  content  like '%" + val + "%'";
+				break;
+			case 6: 
+				cond = " where subject  like '%" + val + "%'";
+				cond = cond + " or  content  like '%" + val + "%'";
+				break;
+			case 7:
+				cond = " where name  like '%" + val + "%'";
+				cond = cond + " or  subject  like '%" + val + "%'";
+				cond = cond + " or  content  like '%" + val + "%'";
+				break;
+			default:
+				chkAll = true;
+				cond = " order by masterid desc, replynum, step, id";
+		}
+	} else {
+		chkAll = true;
+		cond = " order by masterid desc, replynum, step, id";
+	}
+%>
 <div id="wrap">
 <h2>자유 게시판</h2>
 <hr><br><br>
@@ -129,12 +176,15 @@
 		con=DriverManager.getConnection(url, uid, upw);
 		System.out.println("DB 접속 완료");
 		
-		sql="select * from freeboard order by masterid desc, replynum, step, id";
+		sql="select * from freeboard" + cond;
+		if(!chkAll)
+			sql = sql + " order by id desc";
+		
 		st = con.createStatement();
 		rs = st.executeQuery(sql);
 		
 		if(!(rs.next())) {
-			out.println("등록된 글이 없습니다.");
+			out.println("등록된 글이 없습니다. <br>");
 		} else {
 			do{
 				dbid.addElement(new Integer(rs.getInt("id")));
@@ -216,8 +266,10 @@
 	}
 	//현재 페이지가 처음페이지가 아닐경우
 	if (wheregroup > 1) {
-		out.println("[<A href=\"freeboard_list.jsp?go=1\">처음</A>]");
-		out.println("[<A href=\"freeboard_list.jsp?gogroup=" + priorgroup + "\">이전</A>]");
+		out.print("[<A href=freeboard_list_search.jsp?gogroup=1"); 
+		  out.print("&stype="+ what+"&sval=" + val +">처음</A>]");
+		  out.print("[<A href=freeboard_list_search.jsp?gogroup="+priorgroup);
+		  out.print("&stype="+ what+"&sval=" + val +">이전</A>]");
 	} else {
 		out.println("[처음]");
 		out.println("[이전]");
@@ -227,24 +279,30 @@
 	for(int jj=startpage; jj<=endpage; jj++){
 		if(jj==where)
 			out.println("["+jj+"]");
-		else
-			out.println("[<A href=\"freeboard_list.jsp?go=" + jj + "\">"+jj+"</A>]");
+		else{
+			out.print("[<A href=freeboard_list_search.jsp?go="+jj);
+		    out.print("&stype="+ what+"&sval=" + val +">" + jj + "</A>]") ;
+		}
 	}
 	//***************
 	
 	//현재페이지가 마지막 페이지가 아닐경우
 	if (wheregroup < totalgroup) {
-		out.println("[<A href=\"freeboard_list.jsp?gogroup=" + nextgroup + "\">다음</A>]");
-		out.println("[<A href=\"freeboard_list.jsp?gogroup=" + totalgroup + "\">마지막</A>]");
+		 out.print("[<A href=freeboard_list_search.jsp?gogroup="+ nextgroup);
+		  out.print("&stype="+ what+"&sval=" + val +">다음</A>]");
+		  out.print("[<A href=freeboard_list_search.jsp?gogroup="+totalgroup); 
+		  out.print("&stype="+ what+"&sval=" + val +">마지막</A>]");
 	} else {
 		out.println("[다음]");
 		out.println("[마지막]");
 	}
 	out.println(where + "/" + totalpages);
+	out.println("검색된 글 수 :"+totalrows);
+	
 %>
 
-<FORM method="post" name="msgsearch" action="freeboard_search.jsp">
-<TABLE border=0 width=600 cellpadding=0 cellspacing=0>
+<FORM method="post" name="msgsearch" action="freeboard_list_search.jsp">
+<TABLE border=0 width=100% cellpadding=0 cellspacing=0>
  <TR>
   <TD align=right width="241"> 
    <SELECT name=stype >
@@ -258,15 +316,21 @@
    </SELECT>
   </TD>
   <TD width="127" align="center">
-   <INPUT type=text size="17" name="sval" >
+   <INPUT type=text size="17" name="sval" value="<%=val%>" >
   </TD>
   <TD width="115">&nbsp;<a href="#" onClick="check();"><img src="image/serach.gif" border="0" align='absmiddle'></A></TD>
-  <TD align=right valign=bottom width="117"><A href="freeboard_write.html"><img src="image/write.gif" border="0"></TD>
+  <TD align=right valign=bottom width="117">
+  	<A href="freeboard_list_search.jsp">[전체목록]</A>
+  	<A href="freeboard_write.html">[글쓰기]</A>
+  </TD>
  </TR>
 </TABLE>
 </FORM>
-
-
 </div>
+
+<script>
+	document.msgsearch.stype.options[<%=what-1%>].selected = true; 
+</script>
+
 </body>
 </html>

@@ -73,4 +73,4 @@
 		out.println("데이터가 입력되지 않았습니다."+"<br>");
 %>
 <a href="freeboard_write.html">새글쓰기</a>
-<jsp:forward page="freeboard_list.jsp"></jsp:forward>
+<jsp:forward page="freeboard_list_search.jsp"></jsp:forward>
